@@ -19,13 +19,13 @@ const data1 = {
 
 const  handleSubmit =  (e)=>{
     e.preventDefault();
-    const data = new FormData()
-    data.set('title',title)
-    data.set('summary',summary)
-    data.set('image',image)
-    data.set('content',content)
-    // console.log(data);
-   userServices.handleSubmit(data1)
+    const formData = new FormData()
+    formData.append('title',title)
+    formData.append('summary',summary)
+    formData.append('image',image)
+    formData.append('content',content)
+    console.log(formData.getAll('image'));
+   userServices.handleSubmit(formData)
 
 }
 
@@ -47,13 +47,13 @@ const  handleSubmit =  (e)=>{
       ]
 
     return ( <div >
-       <form className='addblog' onSubmit={handleSubmit}>
+       <form className='addblog' encType="multipart/form-data" onSubmit={handleSubmit}>
         
         <input type="text" placeholder='Title...' name="title" value={title} onChange={(e)=>setTitle(e.target.value) }/>
        
         <input type="text" placeholder='Summary...' name="summary" value={summary} onChange={(e)=>setSummary(e.target.value)} />
         
-        <input type="file" name="image"  onChange={(e)=> setImage(e.target.files) }/>
+        <input type="file" name="image"  onChange={(e)=> setImage(e.target.files[0]) }/>
         
         <ReactQuill  name='content'  modules={modules} formats={formats} value={content} onChange={newValue=>setContent(newValue)}/>
         <input type='submit' /> 
