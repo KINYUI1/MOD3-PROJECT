@@ -22,15 +22,13 @@ const UpdateProfilePage = (user)=>{
 
       const handleSubmit =(e)=>{
         e.preventDefault();
-        console.log(user.user._id);
         try {
-            console.log(formData);
             //copy the form data
             const userFormData = {...formData}
     
             //removing extra properties
             delete userFormData.confirm
-            console.log('userformdata',userFormData);
+            
     
             // calling user service sign up function
             usersService.updateUser(userFormData, user.user._id)

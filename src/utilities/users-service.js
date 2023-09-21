@@ -28,9 +28,7 @@ export async function checkToken(){
   const dateStr = await usersApi.checkToken()
   return new Date(dateStr)
 }
-export async function handleSubmit(blog){
- await usersApi.addblog(blog)
-}
+
 
 export function getToken() {
     // getItem returns null if there's no string

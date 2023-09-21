@@ -1,13 +1,15 @@
 import { getToken } from "./users-service";
 
 const BASE_URL = "/api/users";
-const BLOG_URL = "/api/blogs"
+
 
 export function signUp(userData) {
   return sendRequest(BASE_URL, "POST", userData);
 }
 export function updateUser(userData,id) {
-  return sendRequest(`${BASE_URL}/:${id}`, "PUT", userData);
+console.log(id);
+console.log(userData);
+  return sendRequest(`${BASE_URL}/${id}`, "PUT", userData);
 }
 
 export function deleteUser(id){
@@ -22,17 +24,6 @@ export function checkToken() {
   return sendRequest(`${BASE_URL}/check-token`);
 }
 
-export function addblog(blog){
-  // return sendRequest(`${BLOG_URL}/addblog`, 'POST',blog )
-  fetch(`${BLOG_URL}/addblog`,{
-    method:'POST',
-    body:  blog,
-    // headers: {
-    //   "Content-Type": "multipart/form-data;boundary=MyBoundary"
-    // }
-  })
-}
-
 /*--- Helper Functions ---*/
 
 async function sendRequest(url, method = "GET", payload = null) {
@@ -43,10 +34,6 @@ async function sendRequest(url, method = "GET", payload = null) {
     options.headers = { "Content-Type": "application/json" };
     options.body = JSON.stringify(payload);
   }
-if(url === `${BLOG_URL}/addblog`){
-  //  delete options.headers 
-  //  options.headers = { "Content-Type": "multipart/form-data" }
-}
 
   const token = getToken();
   if (token) {

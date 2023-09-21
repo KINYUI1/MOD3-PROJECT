@@ -1,21 +1,21 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState} from 'react'
-import * as userServices from '../utilities/users-service'
+import * as blogsServices from '../utilities/blogs-services'
+import {Navigate} from 'react-router-dom'
 
 
-function AddBlog() {
+
+
+function AddBlog({user}) {
 
     const [content,setContent] = useState('')
     const [summary,setSummary] = useState('')
     const [title,setTitle] = useState('')
     const [image,setImage] = useState('')
-const data1 = {
-    content: content,
-    summary: summary,
-    title:title,
-    image:image
-}
+    const [navigate, setNavigate] = useState(false)
+    const [author,setAuthor] = useState(user._id)
+
 
 const  handleSubmit =  (e)=>{
     e.preventDefault();
@@ -24,9 +24,18 @@ const  handleSubmit =  (e)=>{
     formData.append('summary',summary)
     formData.append('image',image)
     formData.append('content',content)
-    console.log(formData.getAll('image'));
-   userServices.handleSubmit(formData)
+    formData.append('authorID',author)
+    console.log(formData.getAll('authorID'));
+    const responce = blogsServices.handleSubmit(formData)
+    if(responce){
+      setNavigate(true)
+    }
+   
 
+}
+
+if(navigate){
+  return <Navigate to='/'/>
 }
 
     const modules = {

@@ -14,8 +14,9 @@ const NavBar = ({user, setUser})=>{
     }
 
     const {name} = user
-    return <nav>
+    return <nav className="nav">
         <h2>Welcome, {name}</h2>
+        <div>
         <Link to='updateprofile'>Update Profile</Link>
         &nbsp; | &nbsp;
         <Link to=''  onClick={deleteUser}>Delete Account</Link>
@@ -23,6 +24,7 @@ const NavBar = ({user, setUser})=>{
         <Link to='' onClick={handleLogOut}>Log Out</Link>
         &nbsp; | &nbsp;
         <Link to='addblog'>Add Blog</Link>
+        </div>
     </nav>
 }
 

@@ -1,20 +1,23 @@
-function Post() {
-    return ( 
-        <div className="post">
-        <img
-          src="https://www.techspot.com/images2/news/bigimage/2023/09/2023-09-16-image-2-j_1100.webp"
-          alt="img"
-        />
-        <div>
-          <h2>HBM4 could finally double memory bandwidth to 2,048-bit</h2>
-          <p>Double the bandwidth could mean double the performance</p>
-          <div className="author">
-            <p>By Matt Frusher,</p>
-            <p>Today 10:34 AM</p>
-          </div>
-        </div>
-      </div>
-     );
+import { Link } from "react-router-dom";
+
+function Post({blog}) {
+  const bloginfo = blog?(<div className="post">
+   
+  <img
+    src={'http://localhost:3001/'+ blog.image}
+    alt="img"
+  />
+  <div>
+  <Link to={`/post/${blog._id}`}>
+    <h2>{blog.title}</h2>
+    <p>{blog.summary}</p></Link>
+    <div className="author">
+      <p>By {blog._id} ,</p>
+      <p>{blog.createdAt}</p>
+    </div>
+  </div>
+</div>) : '';
+    return  bloginfo    
 }
 
 export default Post;

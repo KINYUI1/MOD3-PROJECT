@@ -51,6 +51,8 @@
 }
 .post img{
 max-width: 30%;
+height: 20%;
+margin-top: 50px;
 }
 .post{
   display: flex;
@@ -70,4 +72,23 @@ margin: 0;
 .addblog input{
   width: 100%;
   display: inline-block;
+}
+.image{
+  display: flex;
+  justify-content: space-between;
+}
+.nav{
+  display: flex;
+  justify-content: space-between;
+}
+.nav div{
+  margin-top: 20px;
+}
+.postpage img{
+  height: 20%;
+  max-width: 70%;
+}
+a{
+  text-decoration: none;
+  color: inherit;
 }
