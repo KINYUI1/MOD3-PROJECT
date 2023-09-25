@@ -3,19 +3,26 @@ import * as userService from '../utilities/users-service'
 
 const NavBar = ({user, setUser})=>{
     const handleLogOut = ()=>{
-        userService.logOut()
-        setUser(null)
+        const confirm = window.confirm('Are You Sure You Want To Log Out?')
+        if(confirm){
+            userService.logOut()
+            setUser(null)
+        }
     }
 
     const deleteUser = ()=>{
-        userService.logOut()
-        console.log(user);
-        userService.deleteUser(user._id)
+        const confirm = window.confirm('Are You Sure You Want To Delete Your Account?')
+        if(confirm){
+            userService.logOut()
+            console.log(user);
+            userService.deleteUser(user._id)
+        }
+        
     }
 
     const {name} = user
     return <nav className="nav">
-        <h2>Welcome, {name}</h2>
+        <h2>Welcome To VENT, {name}</h2>
         <div>
         <Link to='updateprofile'>Update Profile</Link>
         &nbsp; | &nbsp;

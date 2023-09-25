@@ -9,6 +9,15 @@ export function addblog(blog){
     return data
   }
 
+  export function updateblog(blog,id){
+    const data = fetch(`${BLOG_URL}/updateblog/${id}`,{
+      method:'PUT',
+      body:  blog,
+     
+    })
+    return data
+  }
+
   export async function getData(){
     const res = await fetch(`${BLOG_URL}/getblog`)
     const data = await res.json()

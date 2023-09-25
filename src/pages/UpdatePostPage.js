@@ -1,35 +1,42 @@
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { useState} from 'react'
+import {useState,useEffect} from 'react'
 import * as blogsServices from '../utilities/blogs-services'
-import {Navigate} from 'react-router-dom'
+import {Navigate, useParams} from 'react-router-dom'
+import ReactQuill from 'react-quill';
 
+function UpdatePostPage({user}) {
 
-
-
-function AddBlog({user}) {
-
+    const {id} = useParams();
     const [content,setContent] = useState('')
     const [summary,setSummary] = useState('')
     const [title,setTitle] = useState('')
     const [image,setImage] = useState('')
     const [navigate, setNavigate] = useState(false)
-    const [author,setAuthor] = useState(user._id)
+    const [author,setAuthor] = useState('')
 
-
-const  handleSubmit =  (e)=>{
+    useEffect(()=>{
+        async function getdata(){
+            const data = await blogsServices.getDatabyId(id)
+            setAuthor(user._id)
+            setTitle(data.title)
+            setSummary(data.summary)
+            setContent(data.content)
+        }
+        getdata()
+    })
+console.log(user._id);
+const  handleUpdate =  (e)=>{
     e.preventDefault();
     const formData = new FormData()
     formData.append('title',title)
     formData.append('summary',summary)
     formData.append('image',image)
     formData.append('content',content)
-    formData.append('authorID',author)
-    console.log(formData.getAll('authorID'));
-    const responce = blogsServices.handleSubmit(formData)
+    formData.append('authorID',author);
+    const responce = blogsServices.handleupdate(formData,id)
     if(responce){
       setNavigate(true)
     }
+    console.log(formData.getAll('title'));
    
 
 }
@@ -56,7 +63,9 @@ if(navigate){
       ]
 
     return ( <div >
-       <form className='addblog' encType="multipart/form-data" onSubmit={handleSubmit}>
+        <h2>Update Post Page</h2>
+
+       <form className='addblog' encType="multipart/form-data" onSubmit={handleUpdate}>
         
         <input type="text" placeholder='Title...' name="title" value={title} onChange={(e)=>setTitle(e.target.value) } required/>
        
@@ -65,9 +74,9 @@ if(navigate){
         <input type="file" name="image"  onChange={(e)=> setImage(e.target.files[0]) } required/>
         
         <ReactQuill  name='content'  modules={modules} formats={formats} value={content} onChange={newValue=>setContent(newValue)} required/>
-        <input type='submit' /> 
+        <input type='submit' value="Update Post"/> 
        </form> 
     </div> );
 }
 
-export default AddBlog;
+export default UpdatePostPage;

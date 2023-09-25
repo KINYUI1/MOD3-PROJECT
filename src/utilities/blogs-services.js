@@ -14,3 +14,6 @@ export async function getDatabyId(id){
 export async function deleteblog(id){
 blogsApi.deleteblog(id)
 }
+export async function handleupdate(blog,id){
+  return await blogsApi.updateblog(blog,id)
+ }

@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as blogServices from '../utilities/blogs-services'
 
 
+
 function Postpage(props) {
-    const {_id} = props.user
+    const navigate =  useNavigate()
+    console.log(props);
+    const authorId = props.user? props.user._id: null
     const {id} = useParams()
     const [post,setPost] = useState(null)
     console.log(post);
     console.log(id);
-    console.log(_id);
+    console.log(authorId);
     const deletepost = ()=>{
         if(window.confirm('Do you want to delete this post?')){
             blogServices.deleteblog(id)
-            // <Navigate to={}/>
+            navigate('/')
         }
     }
     useEffect(()=>{
@@ -29,10 +32,10 @@ function Postpage(props) {
     return ( <div className="postpage">
         <div className="image">
         <h2>{post.title}</h2>
-        {_id == post.authorID && <><button>Update Post</button><button onClick={deletepost}>Delete Post</button></>}
+        {authorId === post.authorID && <><Link to={`/updatepost/${id}`}><button>Update Post</button></Link><Link to=''><button onClick={deletepost}>Delete Post</button></Link></>}
         </div>
         <div>
-        <img src={`http://localhost:3001/${post.image}`}/>
+        <img src={`http://localhost:3001/${post.image}`} alt={post.title}/>
         </div>
         <h3>{post.summary}</h3>
         <div dangerouslySetInnerHTML={{__html:post.content}}/>

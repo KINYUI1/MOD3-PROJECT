@@ -5,6 +5,7 @@ const multer = require('multer')
 const uploadsMiddleWare = multer({ dest: 'uploads/' })
 
 router.post('/addblog', uploadsMiddleWare.single('image') ,blogsctrl.addblog)
+router.put('/updateblog/:id', uploadsMiddleWare.single('image') ,blogsctrl.updateblog)
 router.get('/getblog',blogsctrl.getblog)
 router.get('/getblogbyid/:id',blogsctrl.getblogbyid)
 router.delete('/deleteblog/:id',blogsctrl.deleteblog)

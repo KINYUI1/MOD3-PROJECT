@@ -10,6 +10,7 @@ import BlogPage from './pages/BlogPage';
 import Header from './components/Header';
 import AddBlog from './components/AddBlog';
 import Postpage from './pages/PostPage';
+import UpdatePostPage from './pages/UpdatePostPage'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <Route path='/updateprofile' element={<UpdateProfilePage user={user}/>}/>
       <Route path='/orders' element={<OrderHistoryPage/>}/>
       <Route path='/post/:id' element={<Postpage user={user} />}/>
+      <Route path='/updatepost/:id' element={<UpdatePostPage user={user}/>}/>
      </Routes> 
      </>:<>
      <Header/>

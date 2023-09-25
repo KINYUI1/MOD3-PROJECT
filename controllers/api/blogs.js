@@ -20,6 +20,27 @@ const addblog = async (req,res)=>{
     res.send(data)
 }
 
+const updateblog = async (req,res)=>{
+    const {id} = req.params
+    console.log(id);
+    const {originalname, path} = req.file
+    const parts = originalname.split('.')
+    const ext = parts[parts.length - 1]
+    const newPath = path + '.' + ext;
+    fs.renameSync(path, newPath)
+    
+    const {title,summary,content,authorID} = req.body;
+
+    const data = await Post.findByIdAndUpdate(id,{
+        title,
+        summary,
+        content,
+        authorID,
+        image:newPath
+    })
+    res.send(data)
+}
+
 const getblog = async (req,res)=>{
    const responce =  await Post.find({}).sort({createdAt: -1}).limit(10)
    res.json(responce)
@@ -40,4 +61,4 @@ try {
 }
 }
 
-module.exports ={addblog , getblog, getblogbyid,deleteblog}
+module.exports ={addblog , getblog, getblogbyid,deleteblog,updateblog}
